@@ -1,0 +1,50 @@
+package edu.kis.powp.visitor;
+
+import edu.iis.powp.command.CommandDrawLineToPosition;
+import edu.iis.powp.command.CommandSetPosition;
+import edu.iis.powp.command.ComplexCommand;
+import edu.iis.powp.command.PlotterCommand;
+
+public class DrawnLinesLengthVisitor implements IVisitor {
+	
+	private int x;
+	private int y;
+	
+	public DrawnLinesLengthVisitor() {
+		this.x = 0;
+		this.y = 0;
+	}
+
+	@Override
+	public Double visit(CommandDrawLineToPosition command) {
+		Double length =  Math.sqrt(Math.pow(command.getX() - this.x, 2) + Math.pow(command.getY() - this.y, 2));
+		this.x = command.getX();
+		this.y = command.getY();
+		return length;
+	}
+
+	@Override
+	public Double visit(CommandSetPosition command) {
+		this.x = command.getX();
+		this.y = command.getY();
+		return 0.0;
+	}
+
+	@Override
+	public Double visit(ComplexCommand command) {
+		Double sum = 0.0;
+		for(PlotterCommand cmd : command.GetCommands()){
+			if(cmd instanceof CommandDrawLineToPosition){
+				sum += visit((CommandDrawLineToPosition)cmd);
+			}
+			else if(cmd instanceof CommandSetPosition){
+				sum += visit((CommandSetPosition)cmd);
+			}
+			else if(cmd instanceof ComplexCommand){
+				sum += visit((ComplexCommand)cmd);
+			}
+		}
+		return sum;
+	}
+
+}

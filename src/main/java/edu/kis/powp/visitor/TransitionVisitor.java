@@ -1,0 +1,44 @@
+package edu.kis.powp.visitor;
+
+import edu.iis.powp.command.CommandDrawLineToPosition;
+import edu.iis.powp.command.CommandSetPosition;
+import edu.iis.powp.command.ComplexCommand;
+import edu.iis.powp.command.PlotterCommand;
+
+public class TransitionVisitor implements IVisitor{
+
+	private final int x;
+	private final int y;
+	
+	public TransitionVisitor(int x, int y){
+		this.x = x;
+		this.y = y;
+	}
+
+	@Override
+	public PlotterCommand visit(CommandDrawLineToPosition command) {
+		return new CommandDrawLineToPosition(command.getX() + this.x, command.getY() + this.y);
+	}
+
+	@Override
+	public PlotterCommand visit(CommandSetPosition command) {
+		return new CommandSetPosition(command.getX() + this.x, command.getY() + this.y);
+	}
+
+	@Override
+	public PlotterCommand visit(ComplexCommand command) {
+		ComplexCommand result = new ComplexCommand();
+		for(PlotterCommand cmd : command.GetCommands()){
+			if(cmd instanceof CommandDrawLineToPosition){
+				result.Add(visit((CommandDrawLineToPosition)cmd));
+			}
+			else if(cmd instanceof CommandSetPosition){
+				result.Add(visit((CommandSetPosition)cmd));
+			}
+			else if(cmd instanceof ComplexCommand){
+				result.Add(visit((ComplexCommand)cmd));
+			}
+		}
+		return result;
+	}
+}

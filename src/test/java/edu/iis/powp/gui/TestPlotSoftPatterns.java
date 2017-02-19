@@ -33,7 +33,9 @@ public class TestPlotSoftPatterns
 		context.addTest("Figure Joe 1", selectTestFigureOptionListener);
 		context.addTest("Figure Joe 2", selectTestFigureOptionListener);
 		context.addTest("Figure Jane", selectTestFigureOptionListener);
-
+		context.addTest("Rectangle", selectTestFigureOptionListener);
+		context.addTest("Rectangle - transition (Visitor)", selectTestFigureOptionListener);
+		context.addTest("Rectangle - line length (Visitor)", selectTestFigureOptionListener);
 	}
 
 	/**
@@ -70,6 +72,7 @@ public class TestPlotSoftPatterns
 		context.addComponentMenuElement(Logger.class, "Severe level", (ActionEvent e) -> LOGGER.setLevel(Level.SEVERE));
 		context.addComponentMenuElement(Logger.class, "OFF logging", (ActionEvent e) -> LOGGER.setLevel(Level.OFF));
 	}
+	
 		
     /**
      * Launch the application.
