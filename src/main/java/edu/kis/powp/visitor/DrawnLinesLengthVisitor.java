@@ -15,8 +15,14 @@ public class DrawnLinesLengthVisitor implements IVisitor {
 		this.y = 0;
 	}
 
+	public DrawnLinesLengthVisitor(int x, int y) {
+		this.x = x;
+		this.y = y;
+	}
+
 	@Override
 	public Double visit(CommandDrawLineToPosition command) {
+		
 		Double length =  Math.sqrt(Math.pow(command.getX() - this.x, 2) + Math.pow(command.getY() - this.y, 2));
 		this.x = command.getX();
 		this.y = command.getY();
@@ -34,15 +40,13 @@ public class DrawnLinesLengthVisitor implements IVisitor {
 	public Double visit(ComplexCommand command) {
 		Double sum = 0.0;
 		for(PlotterCommand cmd : command.GetCommands()){
-			if(cmd instanceof CommandDrawLineToPosition){
-				sum += visit((CommandDrawLineToPosition)cmd);
-			}
-			else if(cmd instanceof CommandSetPosition){
-				sum += visit((CommandSetPosition)cmd);
-			}
-			else if(cmd instanceof ComplexCommand){
-				sum += visit((ComplexCommand)cmd);
-			}
+			
+			
+			sum += (Double) cmd.accept(new DrawnLinesLengthVisitor(x,y));
+			this.x = cmd.getX();
+			this.y = cmd.getY();
+			
+			;
 		}
 		return sum;
 	}

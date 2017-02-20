@@ -27,19 +27,15 @@ public class PlotterFullLengthVisitor implements IVisitor{
 	
 	@Override
 	public Double visit(ComplexCommand command) {
+		
 		Double sum = 0.0;
+
 		for(PlotterCommand cmd : command.GetCommands()){
-			if(cmd instanceof CommandDrawLineToPosition){
-				sum += visit((CommandDrawLineToPosition)cmd);
-			}
-			else if(cmd instanceof CommandSetPosition){
-				sum += visit((CommandSetPosition)cmd);
-			}
-			else if(cmd instanceof ComplexCommand){
-				sum += visit((ComplexCommand)cmd);
-			}
+			sum += (Double) cmd.accept(new PlotterFullLengthVisitor() {});
 		}
 		return sum;
+		
+	
 	}
 	
 	private Double GetLength(int commandX, int commandY) {

@@ -32,7 +32,17 @@ public class ComplexCommand implements PlotterCommand {
 	
 	@Override
 	public Object accept(IVisitor visitor) {
+		
 		return visitor.visit(this);
 	}
+	@Override
+	public int getX(){
+		return 0;
+	}
+	@Override
+	public int getY(){
+		return 0;
+	}
+
 
 }

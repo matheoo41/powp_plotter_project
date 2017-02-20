@@ -28,16 +28,10 @@ public class TransitionVisitor implements IVisitor{
 	@Override
 	public PlotterCommand visit(ComplexCommand command) {
 		ComplexCommand result = new ComplexCommand();
+
+		
 		for(PlotterCommand cmd : command.GetCommands()){
-			if(cmd instanceof CommandDrawLineToPosition){
-				result.Add(visit((CommandDrawLineToPosition)cmd));
-			}
-			else if(cmd instanceof CommandSetPosition){
-				result.Add(visit((CommandSetPosition)cmd));
-			}
-			else if(cmd instanceof ComplexCommand){
-				result.Add(visit((ComplexCommand)cmd));
-			}
+			result.Add((PlotterCommand) cmd.accept(new TransitionVisitor(this.x, this.y) {}));
 		}
 		return result;
 	}

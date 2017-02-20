@@ -6,4 +6,6 @@ import edu.kis.powp.visitor.IVisitor;
 public interface PlotterCommand {
 	void execute(IPlotter plotter);
 	Object accept(IVisitor visitor);
+	int getX();
+	int getY();
 }
