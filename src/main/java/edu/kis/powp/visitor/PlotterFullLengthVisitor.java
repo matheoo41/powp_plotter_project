@@ -31,7 +31,7 @@ public class PlotterFullLengthVisitor implements IVisitor{
 		Double sum = 0.0;
 
 		for(PlotterCommand cmd : command.GetCommands()){
-			sum += (Double) cmd.accept(new PlotterFullLengthVisitor() {});
+			sum += (Double) cmd.accept(this);
 		}
 		return sum;
 		

@@ -35,7 +35,9 @@ public class TestPlotSoftPatterns
 		context.addTest("Figure Jane", selectTestFigureOptionListener);
 		context.addTest("Rectangle", selectTestFigureOptionListener);
 		context.addTest("Rectangle - transition (Visitor)", selectTestFigureOptionListener);
-		context.addTest("Rectangle - line length (Visitor)", selectTestFigureOptionListener);
+		context.addTest("Rectangle - line plot length (Visitor)", selectTestFigureOptionListener);
+		context.addTest("test", selectTestFigureOptionListener);
+
 	}
 
 	/**

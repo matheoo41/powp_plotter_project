@@ -42,9 +42,9 @@ public class DrawnLinesLengthVisitor implements IVisitor {
 		for(PlotterCommand cmd : command.GetCommands()){
 			
 			
-			sum += (Double) cmd.accept(new DrawnLinesLengthVisitor(x,y));
-			this.x = cmd.getX();
-			this.y = cmd.getY();
+			sum += (Double) cmd.accept(this);
+			//this.x = cmd.getX();
+			//this.y = cmd.getY();
 			
 			;
 		}
